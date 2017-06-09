@@ -4,6 +4,11 @@ module V1
     before_action :authenticate_user, only: [:update]
     before_action :authorize_user, only: [:update]
 
+    def index
+      @users = User.all
+      render json: @users
+    end
+    
     def create
       return render json: {}, status: :forbidden if current_user.present?
       user = User.new(user_params)

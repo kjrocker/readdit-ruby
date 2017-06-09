@@ -1,6 +1,8 @@
 module V1
   class CommentsController < ApplicationController
     before_action :set_comment, only: [:show, :update, :destroy]
+    before_action :authenticate_user, only: [:create, :update, :destroy]
+    before_action :authorize_user, only: [:update, :destroy]
 
     # GET /comments
     def index
@@ -16,7 +18,7 @@ module V1
 
     # POST /comments
     def create
-      @comment = Comment.new(comment_params)
+      @comment = Comment.new(comment_params.merge({ user_id: current_user.id }))
 
       if @comment.save
         render json: @comment, status: :created, location: @comment
@@ -45,9 +47,13 @@ module V1
         @comment = Comment.find(params[:id])
       end
 
+      def authorize_user
+        render json: {}, status: :forbidden unless current_user == @comment.user
+      end
+
       # Only allow a trusted parameter "white list" through.
       def comment_params
-        params.require(:comment).permit(:content, :user_id, :post_id)
+        params.require(:comment).permit(:content, :post_id)
       end
   end
 end

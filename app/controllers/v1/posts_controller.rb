@@ -1,6 +1,8 @@
 module V1
   class PostsController < ApplicationController
     before_action :set_post, only: [:show, :update, :destroy]
+    before_action :authenticate_user, only: [:create, :update, :destroy]
+    before_action :authorize_user, only: [:update, :destroy]
 
     # GET /posts
     def index
@@ -16,7 +18,7 @@ module V1
 
     # POST /posts
     def create
-      @post = Post.new(post_params)
+      @post = Post.new(post_params.merge({ user_id: current_user.id }))
 
       if @post.save
         render json: @post, status: :created, location: @post
@@ -45,9 +47,13 @@ module V1
         @post = Post.find(params[:id])
       end
 
+      def authorize_user
+        render json: {}, status: :forbidden unless current_user == @post.user
+      end
+
       # Only allow a trusted parameter "white list" through.
       def post_params
-        params.require(:post).permit(:title, :content, :link, :user_id)
+        params.require(:post).permit(:title, :content, :link)
       end
   end
 end
