@@ -12,15 +12,15 @@ local: &local
 development:
   <<: *default
   <<: *local
-  database: generic-api_development
+  database: readdit_development
 
 test:
   <<: *default
   <<: *local
-  database: generic-api_test
+  database: readdit_test
 
 production:
   <<: *default
-  database: generic-api_production
-  username: generic-api
-  password: <%= ENV['GENERIC-API_DATABASE_PASSWORD'] %>
+  database: readdit_production
+  username: readdit
+  password: <%= ENV['READDIT_DATABASE_PASSWORD'] %>

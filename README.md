@@ -1,4 +1,4 @@
-# Generic Rails API
+# From my generic Rails API readme
 
 This is a generic API with token-based authentication. It is the starting ground
 for any and all Rails API applications that I will build.
@@ -9,7 +9,6 @@ Notable features include:
     * Sidekiq, for async processing
     * Brakeman and Rubocop for static analysis
     * Bullet for catching performance gotchas
-    * Rename, for renaming the app from GenericApi
 * Tests, tests, tests
     * Prefer factories to fixtures, and Minitest over RSpec
 * Refined API-only Authentication
