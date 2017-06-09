@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170609194909) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
+    t.string   "link"
     t.text     "content"
     t.integer  "user_id"
     t.datetime "created_at", null: false

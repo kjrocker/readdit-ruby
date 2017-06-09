@@ -47,7 +47,7 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def post_params
-        params.require(:post).permit(:title, :content, :user_id)
+        params.require(:post).permit(:title, :content, :link, :user_id)
       end
   end
 end
