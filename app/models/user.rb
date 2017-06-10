@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :posts
   has_many :comments
+  has_many :votes
 
   # Simple wrapper for Knock, making it easy to grab new tokens
   def to_jwt
