@@ -3,9 +3,15 @@ Rails.application.routes.draw do
   scope '/api' do
     scope module: :v1 do
       post 'user_token' => 'user_token#create'
-      resources :users, only: [:create, :update, :show]
-      resources :posts
-      resources :comments
+      resources :users, except: [:delete]
+      resources :posts do
+        post 'vote' => 'votes#create'
+        delete 'vote' => 'votes#destroy'
+      end
+      resources :comments do
+        post 'vote' => 'votes#create'
+        delete 'vote' => 'votes#destroy'
+      end
     end
   end
 
